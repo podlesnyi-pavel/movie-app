@@ -29,12 +29,12 @@ export default function App() {
       .then(onLoadMovies)
       .catch((error) => {
         console.log(error);
-        setIsLoadingMovies(false);
         setErrorLoad({
           message: 'Error on loading',
           description: 'Failed to load movies',
         });
-      });
+      })
+      .finally(() => setIsLoadingMovies(false));
   }
 
   function loadConfiguration() {
@@ -54,7 +54,6 @@ export default function App() {
   function onLoadMovies(data: SearchMovie) {
     console.log(data);
     setMovies(data.results);
-    setIsLoadingMovies(false);
   }
 
   function resetErrorLoad() {
