@@ -1,0 +1,119 @@
+@use '@styles/variables' as var;
+
+$mr-content: 9px;
+
+.movie-card {
+  display: grid;
+  grid-template: repeat(3, max-content) 1fr 46px / 60px 1fr;
+  grid-template-areas:
+    'image header'
+    'image date'
+    'image genres'
+    'description description'
+    'stars stars';
+  column-gap: 13px;
+  width: 388px;
+  height: 245px;
+  padding: 5px 8px 0 10px;
+  box-shadow: 0 4px 12px 0 rgba($color: var.$black, $alpha: 0.15);
+  overflow: hidden;
+  flex-shrink: 0;
+
+  @media (min-width: var.$size-tablet-screen) {
+    grid-template: repeat(3, max-content) 1fr 46px / 183px 1fr;
+    grid-template-areas:
+      'image header'
+      'image date'
+      'image genres'
+      'image description'
+      'image stars';
+    column-gap: 20px;
+    width: 451px;
+    height: 279px;
+    padding: 0;
+  }
+
+  &__image {
+    grid-area: image;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  &__header {
+    grid-area: header;
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+
+    @media (min-width: var.$size-tablet-screen) {
+      margin: 10px $mr-content 0 0;
+    }
+  }
+
+  &__title {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
+    font-size: 20px;
+    line-height: 28px;
+  }
+
+  &__rating {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 2px solid var.$bd-yellow;
+  }
+
+  &__date {
+    grid-area: date;
+    margin-top: 7px;
+    color: var.$color-gray;
+
+    @media (min-width: var.$size-tablet-screen) {
+      margin-right: $mr-content;
+    }
+  }
+
+  &__genres {
+    grid-area: genres;
+    margin-top: 7px;
+
+    @media (min-width: var.$size-tablet-screen) {
+      margin-right: $mr-content;
+    }
+  }
+
+  &__description {
+    grid-area: description;
+    margin-top: 7px;
+
+    @media (min-width: var.$size-tablet-screen) {
+      margin-right: $mr-content;
+    }
+  }
+
+  &__stars {
+    grid-area: stars;
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    font-size: 16px;
+
+    @media (min-width: var.$size-tablet-screen) {
+      margin-right: $mr-content;
+    }
+
+    .ant-rate-star {
+      margin-inline-end: 5px;
+    }
+  }
+}

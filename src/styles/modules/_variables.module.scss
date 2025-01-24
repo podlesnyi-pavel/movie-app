@@ -1,0 +1,6 @@
+@use '@styles/_variables.scss' as var;
+
+:export {
+  colorText: var.$color-text;
+  sizeTabletScreen: var.$size-tablet-screen;
+}

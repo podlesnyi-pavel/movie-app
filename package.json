@@ -13,11 +13,14 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "antd": "^5.23.1",
+    "date-fns": "^4.1.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
+    "@types/node": "^22.10.7",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
     "@vitejs/plugin-react": "^4.3.4",
@@ -29,6 +32,7 @@
     "husky": "^9.1.7",
     "lint-staged": "^15.4.1",
     "prettier": "3.4.2",
+    "sass": "^1.83.4",
     "typescript": "~5.6.2",
     "typescript-eslint": "^8.18.2",
     "vite": "^6.0.5"

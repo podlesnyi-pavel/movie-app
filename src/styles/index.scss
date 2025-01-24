@@ -1,0 +1,23 @@
+@use '@styles/variables' as var;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 22px;
+  color: var.$black;
+}
+
+.container {
+  max-width: 1110px;
+  margin: 0 auto;
+  padding: 0 35px;
+  background-color: var.$white;
+}
