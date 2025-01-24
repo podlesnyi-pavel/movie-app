@@ -4,37 +4,39 @@ import Genre from '@components/Genre';
 import { format } from 'date-fns';
 import truncateEllipsisString from '@/utils/truncateEllipsisString';
 import variables from '@styles/modules/_variables.module.scss';
+import { EPosterSizes } from '@/types/theMovieDB/enums/EPosterSizes';
+import { ELengthDescription } from './ELengthDescription';
 
 interface PropsMovieCard {
-  poster_path: string;
+  posterPath: string;
   title: string;
-  release_date: string;
-  vote_average: number;
+  releaseDate: string;
+  voteAverage: number;
   overview: string;
   imgBaseUr: string | undefined;
 }
 
 export default function MovieCard({
   title,
-  vote_average,
-  release_date,
+  voteAverage,
+  releaseDate,
   overview,
-  poster_path,
+  posterPath,
   imgBaseUr,
 }: PropsMovieCard) {
-  const posterSize = 'w500'; // заменить на enum
-
-  const urlPoster = poster_path
-    ? `${imgBaseUr}/${posterSize}${poster_path}`
+  const urlPoster = posterPath
+    ? `${imgBaseUr}/${EPosterSizes.W500}${posterPath}`
     : 'src/assets/empty-poster.jpg';
 
-  const date = release_date
-    ? format(new Date(release_date), 'MMMM dd, yyyy')
+  const date = releaseDate
+    ? format(new Date(releaseDate), 'MMMM dd, yyyy')
     : '';
 
-  const rating = vote_average.toFixed(1);
+  const rating = voteAverage.toFixed(1);
   const lengthDescription =
-    window.innerWidth >= parseInt(variables.sizeTabletScreen) ? 145 : 180;
+    window.innerWidth >= parseInt(variables.sizeTabletScreen)
+      ? ELengthDescription.Desktop
+      : ELengthDescription.Mobile;
 
   const description = truncateEllipsisString(overview, lengthDescription);
 
@@ -61,7 +63,8 @@ export default function MovieCard({
       <Rate
         className="movie-card__stars"
         allowHalf
-        defaultValue={vote_average}
+        defaultValue={voteAverage}
+        value={voteAverage}
         count={10}
       />
     </article>

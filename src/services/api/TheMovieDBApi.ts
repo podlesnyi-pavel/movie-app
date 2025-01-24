@@ -1,8 +1,9 @@
 import SearchMovie from '~types/theMovieDB/SearchMovie';
 import IConfiguration from '~types/theMovieDB/IConfiguration';
 
+// add transformation for data
 export default class TheMovieDBApi {
-  #baseUrl = 'https://api.themoviedb.org/3';
+  readonly #baseUrl = 'https://api.themoviedb.org/3';
 
   async #getRecourse(endPoint: string = '') {
     const url = `${this.#baseUrl}${endPoint}`;
