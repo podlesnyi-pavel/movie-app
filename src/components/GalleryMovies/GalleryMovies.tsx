@@ -78,6 +78,7 @@ export default function GalleryMovies({
         <AppPagination
           {...paginationSettings}
           onChangeCurrentPage={onChangeCurrentPage}
+          className={`${mainClass}__app-pagination`}
         />
       </>
     );

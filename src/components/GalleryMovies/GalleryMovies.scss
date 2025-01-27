@@ -7,4 +7,10 @@
   @media (min-width: 1110px) {
     gap: 36px;
   }
+
+  &__app-pagination {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
 }

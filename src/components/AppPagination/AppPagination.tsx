@@ -6,12 +6,14 @@ interface PropsAppPagination {
   page?: number | undefined;
   total?: number | undefined;
   onChangeCurrentPage: TOnChangeCurrentPageFunc;
+  className: string;
 }
 
 export default function AppPagination({
   page,
   total,
   onChangeCurrentPage,
+  className,
 }: PropsAppPagination) {
   return (
     <Pagination
@@ -21,6 +23,7 @@ export default function AppPagination({
       showSizeChanger={false}
       disabled={total === 1}
       onChange={(page) => onChangeCurrentPage(page)}
+      className={className}
     />
   );
 }

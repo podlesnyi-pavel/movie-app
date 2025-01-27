@@ -29,7 +29,7 @@ export default function App() {
       loadMovies();
     }
   });
-  const debounceLoadMovies = useRef(debounce(loadMovies, 2000));
+  const debounceLoadMovies = useRef(debounce(loadMovies, 1500));
 
   useEffect(() => {
     loadApp.current();
