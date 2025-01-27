@@ -15,9 +15,28 @@ body {
   color: var.$black;
 }
 
-.container {
+.app {
   max-width: 1110px;
   margin: 0 auto;
-  padding: 0 35px;
+  padding: 0 16px;
   background-color: var.$white;
+
+  @media (min-width: 1110px) {
+    padding: 0 36px;
+  }
+
+  &__main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0 37px;
+  }
+
+  &__gallery-movies {
+    margin-top: 10px;
+
+    @media (min-width: 1110px) {
+      margin-top: 36px;
+    }
+  }
 }

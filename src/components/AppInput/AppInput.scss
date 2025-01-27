@@ -1,0 +1,14 @@
+.app-input {
+  &--page-search {
+    max-width: 388px;
+    margin: 0 auto;
+
+    @media (min-width: 845px) {
+      max-width: 796px;
+    }
+
+    @media (min-width: 1110px) {
+      max-width: 938px;
+    }
+  }
+}
