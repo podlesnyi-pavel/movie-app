@@ -13,6 +13,8 @@ import LocalStorageService from '@/utils/LocalStorageService';
 import { ELocalStorageItem } from '@/types/enums/ELocalStorageItem';
 import { TChangeStarsRatingRatedMovies } from '@/types/TChangeStarsRatingRatedMoviesFunc';
 
+import posterImgSrc from '@/assets/empty-poster.jpg';
+
 interface PropsMovieCard {
   id: number;
   title: string;
@@ -58,7 +60,7 @@ export default function MovieCard({
 
   const urlPoster = posterPath
     ? `${imgBaseUr}/${EPosterSizes.W500}${posterPath}`
-    : 'src/assets/empty-poster.jpg';
+    : posterImgSrc;
 
   const date = releaseDate
     ? format(new Date(releaseDate), 'MMMM dd, yyyy')
@@ -105,7 +107,7 @@ export default function MovieCard({
 
       <div className="movie-card__genres">
         {genreIDs.map((genreId) => {
-          const genre = genres?.find((item) => item.id === genreId);
+          const genre = genres.find((item) => item.id === genreId);
 
           return <Genre key={genre?.id}>{genre!.name}</Genre>;
         })}

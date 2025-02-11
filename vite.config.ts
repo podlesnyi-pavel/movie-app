@@ -7,14 +7,6 @@ export default defineConfig({
   plugins: [react()],
   css: {
     devSourcemap: true,
-    // дублирует все из файла во все файлы scss
-    // preprocessorOptions: {
-    //   scss: {
-    //     additionalData: `
-    //       @use "@/styles/variables.scss" as *;
-    //     `,
-    //   },
-    // },
   },
   resolve: {
     alias: {
