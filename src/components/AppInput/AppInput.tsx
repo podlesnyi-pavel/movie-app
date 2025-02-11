@@ -1,24 +1,21 @@
-import { useState } from 'react';
 import './AppInput.scss';
 import { Input } from 'antd';
 
 interface PropsAppInput {
+  value: string;
   placeholder?: string | undefined;
   className: string;
   onInput: (searchValue: string) => void;
 }
 
 export default function AppInput({
+  value,
   placeholder = 'Type to search...',
   className,
   onInput,
 }: PropsAppInput) {
-  const [inputValue, setInputValue] = useState('');
-
   function handleInput(e: React.ChangeEvent<HTMLInputElement>) {
     const { value } = e.target;
-
-    setInputValue(value);
     onInput(value);
   }
 
@@ -26,7 +23,7 @@ export default function AppInput({
     <Input
       className={`app-input app-input--${className}`}
       placeholder={placeholder}
-      value={inputValue}
+      value={value}
       onChange={handleInput}
     />
   );

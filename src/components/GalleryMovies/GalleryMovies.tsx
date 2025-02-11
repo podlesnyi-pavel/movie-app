@@ -1,74 +1,96 @@
 import './GalleryMovies.scss';
 import MovieCard from '@components/MovieCard';
-import Movie from '~types/theMovieDB/Movie';
+import IMovie, { IRatedMovie } from '@/types/theMovieDB/IMovie';
 import Loader from '@components/Loader';
 import { ELoader } from '../Loader/ELoader';
-import IAlertError from '~types/IAlertError';
+import IAlertError from '@/types/IAlertError';
 import { Alert, Button } from 'antd';
 import AppPagination from '../AppPagination';
-import { IPaginationSettings } from '~types/theMovieDB/enums/IPaginationSettings';
-import { TOnChangeCurrentPageFunc } from '~types/TOnChangeCurrentPageFunc';
+import { IPaginationSettings } from '@/types/theMovieDB/enums/IPaginationSettings';
+import { TOnChangePageFunc } from '@/types/TOnChangePageFunc';
+import { TChangeStarsRatingRatedMovies } from '@/types/TChangeStarsRatingRatedMoviesFunc';
+import LocalStorageService from '@/utils/LocalStorageService';
+import { ELocalStorageItem } from '@/types/enums/ELocalStorageItem';
 
 interface PropsGalleryMovies {
-  movies: Movie[];
-  isLoadingMovies: boolean;
+  movies: IMovie[] | IRatedMovie[];
+  isLoading: boolean;
   errorLoad: IAlertError | null;
   imgBaseUrl: string | undefined;
-  loadApp: () => void;
+  onError: () => void;
   className?: string;
-  inputSearchValue: string;
+  onEmptyRender: () =>
+    | 'Nothing was found'
+    | 'Enter to search for movies'
+    | undefined
+    | 'No rated movies';
   paginationSettings: IPaginationSettings | null;
-  onChangeCurrentPage: TOnChangeCurrentPageFunc;
+  onChangePage: TOnChangePageFunc;
+  changeStarsRatingRatedMovies: TChangeStarsRatingRatedMovies;
+  handleIsRated: () => void;
 }
 
 export default function GalleryMovies({
   movies,
-  isLoadingMovies,
+  isLoading,
   errorLoad,
   imgBaseUrl,
-  loadApp,
+  onError,
   className = '',
-  inputSearchValue = '',
+  onEmptyRender,
   paginationSettings,
-  onChangeCurrentPage,
+  onChangePage,
+  changeStarsRatingRatedMovies,
+  handleIsRated,
 }: PropsGalleryMovies) {
   const mainClass = 'gallery-movies';
-  const isEmptyMovies = !movies.length;
   let render;
+  const emptyRender = onEmptyRender();
 
-  if (isLoadingMovies) {
+  if (isLoading) {
     render = <Loader size={ELoader.Large} />;
   } else if (errorLoad) {
-    const { message, description } = errorLoad;
+    const { message, description, status } = errorLoad;
 
     render = (
       <Alert
         message={message}
         showIcon
-        description={description}
+        description={`${description} ${status}`}
         type="error"
         action={
-          <Button size="small" danger onClick={loadApp}>
+          <Button size="small" danger onClick={onError}>
             Try again
           </Button>
         }
       />
     );
-  } else if (isEmptyMovies && inputSearchValue) {
-    render = 'Nothing was found';
-  } else if (isEmptyMovies && !inputSearchValue) {
-    render = 'Enter to search for movies';
+  } else if (emptyRender) {
+    render = emptyRender;
   } else {
+    const rated: Map<number, number> = new Map(
+      JSON.parse(LocalStorageService.getItem(ELocalStorageItem.RatedMovies)),
+    );
+
     const moviesList = movies.map((movie) => {
       const useKeyMovie = {
+        id: movie.id,
         title: movie.title,
         voteAverage: movie.vote_average,
         releaseDate: movie.release_date,
         overview: movie.overview,
         posterPath: movie.poster_path,
+        ownRating: 'rating' in movie ? movie.rating : rated.get(movie.id) || 0,
+        genreIDs: movie.genre_ids,
       };
       return (
-        <MovieCard key={movie.id} {...useKeyMovie} imgBaseUr={imgBaseUrl} />
+        <MovieCard
+          key={movie.id}
+          {...useKeyMovie}
+          imgBaseUr={imgBaseUrl}
+          changeStarsRatingRatedMovies={changeStarsRatingRatedMovies}
+          handleIsRated={handleIsRated}
+        />
       );
     });
 
@@ -77,7 +99,7 @@ export default function GalleryMovies({
         {...moviesList}
         <AppPagination
           {...paginationSettings}
-          onChangeCurrentPage={onChangeCurrentPage}
+          onChangePage={onChangePage}
           className={`${mainClass}__app-pagination`}
         />
       </>

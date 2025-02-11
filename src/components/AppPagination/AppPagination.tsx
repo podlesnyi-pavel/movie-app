@@ -1,18 +1,18 @@
-import { TOnChangeCurrentPageFunc } from '~types/TOnChangeCurrentPageFunc';
+import { TOnChangePageFunc } from '@/types/TOnChangePageFunc';
 import './AppPagination.scss';
 import { Pagination } from 'antd';
 
 interface PropsAppPagination {
   page?: number | undefined;
   total?: number | undefined;
-  onChangeCurrentPage: TOnChangeCurrentPageFunc;
+  onChangePage: TOnChangePageFunc;
   className: string;
 }
 
 export default function AppPagination({
   page,
   total,
-  onChangeCurrentPage,
+  onChangePage,
   className,
 }: PropsAppPagination) {
   return (
@@ -20,9 +20,11 @@ export default function AppPagination({
       defaultCurrent={1}
       current={page}
       total={total}
+      pageSize={20}
       showSizeChanger={false}
       disabled={total === 1}
-      onChange={(page) => onChangeCurrentPage(page)}
+      hideOnSinglePage={true}
+      onChange={(page) => onChangePage(page)}
       className={className}
     />
   );

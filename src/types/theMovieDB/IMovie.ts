@@ -1,4 +1,4 @@
-export default interface Movie {
+export default interface IMovie {
   adult: boolean;
   backdrop_path: string;
   genre_ids: number[];
@@ -13,4 +13,8 @@ export default interface Movie {
   video: boolean;
   vote_average: number;
   vote_count: number;
+}
+
+export interface IRatedMovie extends IMovie {
+  rating: number;
 }

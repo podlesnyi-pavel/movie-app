@@ -1,4 +1,4 @@
-import Movie from '~types/theMovieDB/Movie';
+import Movie from '@/types/theMovieDB/IMovie';
 
 export default interface SearchMovie {
   page: number;

@@ -33,11 +33,26 @@ $mr-content: 9px;
     padding: 0;
   }
 
-  &__image {
+  &__wrap-image {
+    display: block;
     grid-area: image;
+    overflow: hidden;
+
+    &:hover {
+      .movie-card__image {
+        filter: brightness(0.6);
+        transform: scale(1.05);
+      }
+    }
+  }
+
+  &__image {
+    object-fit: cover;
     height: 100%;
     width: 100%;
-    object-fit: cover;
+    transition:
+      filter 0.5s,
+      transform 1s;
   }
 
   &__header {
@@ -60,6 +75,14 @@ $mr-content: 9px;
     margin: 0;
     font-size: 20px;
     line-height: 28px;
+
+    &:hover {
+      color: var.$main-hover;
+    }
+
+    & > a {
+      color: inherit;
+    }
   }
 
   &__rating {
@@ -85,7 +108,13 @@ $mr-content: 9px;
 
   &__genres {
     grid-area: genres;
+    display: flex;
+    row-gap: 5px;
+    column-gap: 8px;
+    flex-wrap: wrap;
+    height: 22px;
     margin-top: 7px;
+    overflow-y: hidden;
 
     @media (min-width: var.$size-tablet-screen) {
       margin-right: $mr-content;

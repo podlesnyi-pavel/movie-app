@@ -39,4 +39,32 @@ body {
       margin-top: 36px;
     }
   }
+
+  .ant-tabs {
+    width: 100%;
+    font-family: inherit;
+
+    &-nav {
+      &::before {
+        display: none;
+      }
+    }
+
+    &-nav-list {
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    &-tabpane-active {
+      display: flex;
+      flex-direction: column;
+    }
+
+    &-tab {
+      padding: 12px 10px;
+
+      + .ant-tabs-tab {
+        margin-left: 20px;
+      }
+    }
+  }
 }
